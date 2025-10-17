@@ -1,77 +1,43 @@
-# MASI-Boy: Credit Risk Modeling & Data Imputation Assignment
+# Credit Default Prediction — Imputation via Regression
 
-## 🧠 Overview
-This project notebook (`masi-boy.ipynb`) demonstrates a complete workflow for **data preprocessing, missing value imputation, and credit risk modeling** using the **UCI Credit Card Default dataset**.  
-It was designed as part of an academic assignment to test understanding of **data wrangling**, **statistical imputation**, and **predictive modeling**.
-
----
-
-## 📂 Dataset
-**Source:** [UCI Default of Credit Card Clients Dataset (Kaggle)](https://www.kaggle.com/datasets/uciml/default-of-credit-card-clients-dataset)  
-**File used:** `UCI_Credit_Card.csv`
-
-The dataset contains demographic and financial information for over 30,000 credit card clients in Taiwan, including repayment history and default status.
+### 📘 Overview
+This notebook implements **multiple imputation strategies** to handle missing data in the **UCI Credit Card Default dataset**, followed by a **classification analysis** using Logistic Regression.  
+The goal is to compare imputation techniques—**Simple Median**, **Linear Regression**, **Non-linear Regression**, and **Listwise Deletion**—and evaluate their impact on downstream model performance.
 
 ---
 
-## 🧰 Environment Setup
-Make sure the following Python libraries are installed:
-
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn statsmodels missingno
-```
-
----
-
-## 🪜 Notebook Structure
-
-### **Part A: Data Preprocessing and Imputation [20 points]**
-- Handling missing values and exploring missingness patterns  
-- Simulating **MAR (Missing At Random)** mechanism  
-- Comparing data **distribution before and after missingness**  
-- Implementing and evaluating multiple imputation strategies:
-  1. **Simple Imputation (Mean / Median)**
-  2. **Linear Regression Imputation**
-  3. **Non-Linear Regression Imputation (e.g., Random Forest, KNN, etc.)**
-
-### **Part B (if applicable): Modeling and Evaluation**
-- Training baseline models for credit default prediction  
-- Performing feature selection and scaling  
-- Evaluating model performance (Accuracy, ROC-AUC, Precision, Recall)  
-- Visual diagnostics and interpretability checks  
+### 🧩 Contents
+1. **Data Loading & Cleaning** — Preprocessed demographic and financial variables; encoded categorical fields.  
+2. **Missingness Simulation (MAR)** — Artificially introduced controlled missingness (≈6%) in key numeric columns (`AGE`, `BILL_AMT1`, `PAY_AMT1`).  
+3. **Imputation Strategies**  
+   - **Model A:** Median Imputation  
+   - **Model B:** Linear Regression Imputation  
+   - **Model C:** Non-linear (KNN/Decision Tree) Imputation  
+   - **Model D:** Listwise Deletion  
+4. **Model Evaluation** — Logistic Regression with standardization and cluster-based resampling; full performance metrics (Accuracy, ROC-AUC, Precision, Recall, F1).  
+5. **Results Comparison & Discussion** — Quantitative tables, radar plots, F1 analysis, and conceptual discussion of trade-offs.
 
 ---
 
-## 📊 Visualizations
-- Distribution comparisons before and after imputation  
-- Missingness heatmaps (using `missingno`)  
-- Regression residual analysis for imputation diagnostics  
-- Feature importance and prediction metrics (if modeling is included)
+### 📊 Key Findings
+- **Median Imputation (Model A)** achieved the most **balanced and generalizable performance**, with the best F1-score for the minority class (defaulters).  
+- **Listwise Deletion (Model D)** showed slightly higher accuracy but suffered from information loss and bias.  
+- **Linear Regression Imputation** marginally outperformed **Non-linear**, indicating predominantly **linear dependencies** between `BILL_AMT1` and other predictors.
 
 ---
 
-## ✅ Key Insights
-- Demonstrates that **regression-based imputation** maintains feature relationships better than simple statistical methods.  
-- Highlights the **impact of imputation strategy** on downstream predictive modeling.  
-- Offers reproducible visual comparisons to assess imputation bias.
+### 🧠 Conclusion
+For MAR-type missingness in structured financial data, **Median Imputation** provides the optimal trade-off between **simplicity**, **robustness**, and **predictive reliability**—making it the recommended approach for real-world credit scoring applications.
 
 ---
 
-## 💡 Extensions
-To go beyond the assignment, you can:
-- Integrate **multiple imputation by chained equations (MICE)**  
-- Add **automated hyperparameter tuning**  
-- Compare **tree-based vs. linear imputations**  
-- Incorporate **SHAP / LIME explainability** for model interpretability  
+### ⚙️ Dependencies
+- Python 3.10+  
+- Libraries: `pandas`, `numpy`, `seaborn`, `matplotlib`, `scikit-learn`
 
 ---
 
-## 🧾 License
-This project is intended for educational use under IIT Madras’ MS (DS & AI) coursework.  
-All dataset rights belong to the original UCI/Kaggle data providers.
-
----
-
-## 👤 Author
-**Akshay [MS DS & AI @ IIT Madras]**  
-Focus: Practical, reproducible, and explainable data science pipelines.
+**Author:** Akshay Ambekar (DA25S007)
+**Institution:** IIT Madras — MS in Data Science & AI  
+**Course:** DA5401 — Data Analytics Laboratory  
+**Assignment:** A6 — *Imputation via Regression*
